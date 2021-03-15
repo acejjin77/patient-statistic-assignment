@@ -1,0 +1,141 @@
+# This is an auto-generated Django model module.
+# You'll have to do the following manually to clean this up:
+#   * Rearrange models' order
+#   * Make sure each model has one field with primary_key=True
+#   * Make sure each ForeignKey and OneToOneField has `on_delete` set to the desired behavior
+#   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
+# Feel free to rename the models, but don't rename db_table values or field names.
+from django.db import models
+
+
+class Concept(models.Model):
+    concept_id = models.IntegerField()
+    concept_name = models.CharField(max_length=255)
+    domain_id = models.CharField(max_length=20)
+    vocabulary_id = models.CharField(max_length=20)
+    concept_class_id = models.CharField(max_length=20)
+    standard_concept = models.CharField(max_length=1, blank=True, null=True)
+    concept_code = models.CharField(max_length=50)
+    valid_start_date = models.DateField()
+    valid_end_date = models.DateField()
+    invalid_reason = models.CharField(max_length=1, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'concept'
+
+
+class ConditionOccurrence(models.Model):
+    condition_occurrence_id = models.BigIntegerField()
+    person_id = models.BigIntegerField()
+    condition_concept_id = models.IntegerField()
+    condition_start_date = models.DateField(blank=True, null=True)
+    condition_start_datetime = models.DateTimeField()
+    condition_end_date = models.DateField(blank=True, null=True)
+    condition_end_datetime = models.DateTimeField(blank=True, null=True)
+    condition_type_concept_id = models.IntegerField()
+    condition_status_concept_id = models.IntegerField(blank=True, null=True)
+    stop_reason = models.CharField(max_length=20, blank=True, null=True)
+    provider_id = models.BigIntegerField(blank=True, null=True)
+    visit_occurrence_id = models.BigIntegerField(blank=True, null=True)
+    visit_detail_id = models.BigIntegerField(blank=True, null=True)
+    condition_source_value = models.CharField(max_length=50, blank=True, null=True)
+    condition_source_concept_id = models.IntegerField(blank=True, null=True)
+    condition_status_source_value = models.CharField(max_length=50, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'condition_occurrence'
+
+
+class Death(models.Model):
+    person_id = models.BigIntegerField()
+    death_date = models.DateField()
+    death_datetime = models.DateTimeField(blank=True, null=True)
+    death_type_concept_id = models.IntegerField()
+    cause_concept_id = models.IntegerField()
+    cause_source_value = models.CharField(max_length=50, blank=True, null=True)
+    cause_source_concept_id = models.IntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'death'
+
+
+class DrugExposure(models.Model):
+    drug_exposure_id = models.BigIntegerField()
+    person_id = models.BigIntegerField()
+    drug_concept_id = models.IntegerField()
+    drug_exposure_start_date = models.DateField(blank=True, null=True)
+    drug_exposure_start_datetime = models.DateTimeField()
+    drug_exposure_end_date = models.DateField(blank=True, null=True)
+    drug_exposure_end_datetime = models.DateTimeField()
+    verbatim_end_date = models.DateField(blank=True, null=True)
+    drug_type_concept_id = models.IntegerField()
+    stop_reason = models.CharField(max_length=20, blank=True, null=True)
+    refills = models.IntegerField(blank=True, null=True)
+    quantity = models.DecimalField(max_digits=65535, decimal_places=65535, blank=True, null=True)
+    days_supply = models.IntegerField(blank=True, null=True)
+    sig = models.TextField(blank=True, null=True)
+    route_concept_id = models.IntegerField()
+    lot_number = models.CharField(max_length=50, blank=True, null=True)
+    provider_id = models.BigIntegerField(blank=True, null=True)
+    visit_occurrence_id = models.BigIntegerField(blank=True, null=True)
+    visit_detail_id = models.BigIntegerField(blank=True, null=True)
+    drug_source_value = models.CharField(max_length=50, blank=True, null=True)
+    drug_source_concept_id = models.IntegerField()
+    route_source_value = models.CharField(max_length=50, blank=True, null=True)
+    dose_unit_source_value = models.CharField(max_length=50, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'drug_exposure'
+
+
+class Person(models.Model):
+    person_id = models.BigIntegerField()
+    gender_concept_id = models.IntegerField()
+    year_of_birth = models.IntegerField()
+    month_of_birth = models.IntegerField(blank=True, null=True)
+    day_of_birth = models.IntegerField(blank=True, null=True)
+    birth_datetime = models.DateTimeField(blank=True, null=True)
+    race_concept_id = models.IntegerField()
+    ethnicity_concept_id = models.IntegerField()
+    location_id = models.BigIntegerField(blank=True, null=True)
+    provider_id = models.BigIntegerField(blank=True, null=True)
+    care_site_id = models.BigIntegerField(blank=True, null=True)
+    person_source_value = models.CharField(max_length=50, blank=True, null=True)
+    gender_source_value = models.CharField(max_length=50, blank=True, null=True)
+    gender_source_concept_id = models.IntegerField()
+    race_source_value = models.CharField(max_length=50, blank=True, null=True)
+    race_source_concept_id = models.IntegerField()
+    ethnicity_source_value = models.CharField(max_length=50, blank=True, null=True)
+    ethnicity_source_concept_id = models.IntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'person'
+
+
+class VisitOccurrence(models.Model):
+    visit_occurrence_id = models.BigIntegerField()
+    person_id = models.BigIntegerField()
+    visit_concept_id = models.IntegerField()
+    visit_start_date = models.DateField(blank=True, null=True)
+    visit_start_datetime = models.DateTimeField()
+    visit_end_date = models.DateField(blank=True, null=True)
+    visit_end_datetime = models.DateTimeField()
+    visit_type_concept_id = models.IntegerField()
+    provider_id = models.BigIntegerField(blank=True, null=True)
+    care_site_id = models.BigIntegerField(blank=True, null=True)
+    visit_source_value = models.CharField(max_length=50, blank=True, null=True)
+    visit_source_concept_id = models.IntegerField()
+    admitted_from_concept_id = models.IntegerField()
+    admitted_from_source_value = models.CharField(max_length=50, blank=True, null=True)
+    discharge_to_source_value = models.CharField(max_length=50, blank=True, null=True)
+    discharge_to_concept_id = models.IntegerField(blank=True, null=True)
+    preceding_visit_occurrence_id = models.BigIntegerField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'visit_occurrence'

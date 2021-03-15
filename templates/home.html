@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}home.html{% endblock %}
+
+{% block extra-style %}
+    <style type="text/css">
+        .title {
+            color: #cc8800;
+            font-weight: bold;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <hr style="margin: 20px 0;">
+
+    <div class="row text-center">
+        <div class="col-sm-5">
+            <h3>Patients</h3>
+            <p>환자 종류(성, 인종 등)에 따른 통계 제공</p>
+        </div>
+        <div class="col-sm-5">
+            <h3>Visit</h3>
+            <p>방문 횟수와 유형에 따른 통계와 환자 종류의 상관관계를 포함한 통계 제공</p>
+        </div>
+
+    </div>
+{% endblock %}
+
+
+{% block extra-script %}
+
+{% endblock %}
+

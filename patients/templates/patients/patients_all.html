@@ -1,0 +1,33 @@
+{% extends 'base_app.html' %}
+
+{% block title %}
+    전체 환자 수
+{% endblock %}
+
+{% block content %}
+
+    <div class="leftsidenav">
+        <a href="{% url 'patients:patients' %}">환자별 통계</a>
+        <a href="{% url 'patients:visit' %}">방문별 통계</a>
+    </div>
+
+    <div class="main">
+        <h3>전체 환자에 대한 비율그래프</h3>
+        <br/>
+        <canvas id="patient_chart" data-url="{% url '' %}"></canvas>
+    </div>
+
+
+{% endblock %}
+
+{% block extra-script %}
+    <script>
+        var ctx = document.getElementById('patient_chart').getContext('2d');
+
+        $.ajax({
+            url:
+        })
+        }
+        ;
+    </script>
+{% endblock %}
