@@ -1,11 +1,8 @@
-from django.http import HttpResponse
 from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework import views, serializers
 from django.views import generic
 from . import models, serializers
-import numpy as np
-import sklearn
 
 
 class PatientChartView(generic.TemplateView):
@@ -13,10 +10,11 @@ class PatientChartView(generic.TemplateView):
     models = models.Person
 
 
-class VisitChartView(generic.TemplateView):
-    template_name = 'visit/visit_all.html'
-    models = models.VisitOccurrence
-
+#########################
+#                       #
+# Person Views          #
+#                       #
+#########################
 
 class PersonList(views.APIView):
     def get(self, request):

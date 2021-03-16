@@ -1,0 +1,76 @@
+{% extends 'base_app.html' %}
+
+{% block title %}
+    전체 환자 수
+{% endblock %}
+
+{% block content %}
+
+    <div class="leftsidenav">
+        <a href="{% url 'visit:visit' %}">방문별 통계</a>
+    </div>
+
+    <div class="main">
+        <h3>방문 유형에 대한 비율</h3>
+
+        <br/>
+
+        <div class="container">
+            <table id="concept_table" class="table table-bordered sm-2 text-center">
+                <tr>
+                    <th>환자 군</th>
+                    <th>환자 수</th>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block extra-script %}
+    <script>
+
+        var visit_data = []
+
+        var groups = ['visit_concept_id/9201', 'visit_concept_id/9202', 'visit_concept_id/9203']
+
+        var labels = ['입원', '외래', '응급']
+
+        var j = 0
+
+        for (var i = 0; i < groups.length; i++) {
+            $.ajax({
+                url: {% url 'visit:visit' %} +groups[i],
+                async: false,
+                dataType: 'json',
+                success: function (data) {
+                    var group_data = {}
+                    group_data['group'] = labels[j++]
+                    group_data['data'] = Object.keys(data).length
+                    visit_data.push(group_data)
+                }
+            })
+        }
+
+        show_table(visit_data)
+
+        function addtable(list) {
+            var boarditem = "<tr>"
+
+            for (var i in list) {
+                boarditem += "<td>" + list[i] + "</td>"
+            }
+
+            boarditem += "</tr>"
+            return boarditem
+        }
+
+        function show_table(data) {
+            for (var i in data) {
+                $('#concept_table').append(addtable(data[i]))
+            }
+        }
+
+    </script>
+{% endblock %}

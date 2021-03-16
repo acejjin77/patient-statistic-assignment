@@ -8,18 +8,21 @@
 
     <div class="leftsidenav">
         <a href="{% url 'patients:patients' %}">환자별 통계</a>
-        <a href="{% url 'patients:visit' %}">방문별 통계</a>
     </div>
 
     <div class="main">
         <h3>전체 환자에 대한 비율</h3>
+
         <br/>
+
         <div class="container">
             <canvas id="patient_chart" data-url="{% url 'patients:person-data' %}"></canvas>
         </div>
 
+        <br/>
+
         <div class="container">
-            <table id="patient_table" class="table mx-3 text-center">
+            <table id="patient_table" class="table table-bordered sm-2 text-center">
                 <tr>
                     <th>환자 군</th>
                     <th>환자 수</th>
@@ -34,24 +37,28 @@
 {% block extra-script %}
     <script>
         var patient_data = []
+        var person_number= []
 
-        var groups = ['personlist', 'gender/M', 'gender/F', 'race/white', 'race/asian', 'race/black', 'ethnicity/hispanic', 'ethnicity/nonhispanic']
+        var groups = ['whole_patient', 'gender/M', 'gender/F', 'race/white', 'race/asian', 'race/black', 'ethnicity/hispanic', 'ethnicity/nonhispanic']
 
-        for (var i=0; i < groups.length; i++ ) {
+        var labels = ['전체 환자 수', '남자', '여자', '백인', '동양인', '흑인', '라틴계', '비 라틴계']
+
+        var j = 0
+
+        for (var i = 0; i < groups.length; i++) {
             $.ajax({
                 url: {% url 'patients:patients' %} + groups[i],
+                async: false,
                 dataType: 'json',
                 success: function (data) {
                     var group_data = {}
-                    console.log(groups[i])
-                    group_data['group'] = groups[i]
+                    group_data['group'] = labels[j++]
                     group_data['data'] = Object.keys(data).length
                     patient_data.push(group_data)
+                    person_number.push(Object.keys(data).length)
                 }
             })
         }
-
-        console.log(patient_data)
 
         function addtable(list) {
             var boarditem = "<tr>"
@@ -67,17 +74,9 @@
         show_table()
 
         function show_table() {
-            var wrapper = document.getElementById('disease_list')
-
-            (function (patient_data) {
-
-                var list = patient_data.data
-
-                for (var i in list) {
-                    $('#patient_table').append(addtable(list[i]))
-                }
-
-            })
+            for (var i in patient_data) {
+                $('#patient_table').append(addtable(patient_data[i]))
+            }
         }
 
 
@@ -88,16 +87,16 @@
                 type: 'bar',
                 async: false,
                 data: {
-                    labels: patient_data.group,
+                    labels: labels,
                     datasets: [{
                         label: '# of Person',
-                        data: patient_data.data,
-                        backgroundColor: ['rgba(54, 162, 235, 0.2)'],
+                        data: person_number,
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)'
                     }]
                 },
                 options: {scales: {yAxes: [{ticks: {beginAtZero: true}}]}}
             });
         })
-
+        console.log(patient_data.group)
     </script>
 {% endblock %}

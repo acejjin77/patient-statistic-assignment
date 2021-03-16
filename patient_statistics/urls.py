@@ -18,10 +18,12 @@ from django.urls import path, include
 from rest_framework import routers
 from patient_statistics.views import HomeView
 from patients import views
+from visit import views
 
 urlpatterns = [
     path(r'admin/', admin.site.urls),
     path(r'', HomeView.as_view(), name='home'),
     path(r'api-auth/', include('rest_framework.urls')),
     path(r'patients/', include('patients.urls')),
+    path(r'visit/', include('visit.urls')),
 ]
