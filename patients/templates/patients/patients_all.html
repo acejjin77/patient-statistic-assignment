@@ -12,14 +12,92 @@
     </div>
 
     <div class="main">
-        <h3>전체 환자에 대한 비율그래프</h3>
+        <h3>전체 환자에 대한 비율</h3>
         <br/>
-        <canvas id="patient_chart" data-url="{% url 'patients:person-data' %}"></canvas>
+        <div class="container">
+            <canvas id="patient_chart" data-url="{% url 'patients:person-data' %}"></canvas>
+        </div>
+
+        <div class="container">
+            <table id="patient_table" class="table mx-3 text-center">
+                <tr>
+                    <th>환자 군</th>
+                    <th>환자 수</th>
+                </tr>
+            </table>
+        </div>
     </div>
 
 
 {% endblock %}
 
 {% block extra-script %}
+    <script>
+        var patient_data = []
 
+        var groups = ['personlist', 'gender/M', 'gender/F', 'race/white', 'race/asian', 'race/black', 'ethnicity/hispanic', 'ethnicity/nonhispanic']
+
+        for (var i=0; i < groups.length; i++ ) {
+            $.ajax({
+                url: {% url 'patients:patients' %} + groups[i],
+                dataType: 'json',
+                success: function (data) {
+                    var group_data = {}
+                    console.log(groups[i])
+                    group_data['group'] = groups[i]
+                    group_data['data'] = Object.keys(data).length
+                    patient_data.push(group_data)
+                }
+            })
+        }
+
+        console.log(patient_data)
+
+        function addtable(list) {
+            var boarditem = "<tr>"
+
+            for (var i in list) {
+                boarditem += "<td>" + list[i] + "</td>"
+            }
+
+            boarditem += "</tr>"
+            return boarditem
+        }
+
+        show_table()
+
+        function show_table() {
+            var wrapper = document.getElementById('disease_list')
+
+            (function (patient_data) {
+
+                var list = patient_data.data
+
+                for (var i in list) {
+                    $('#patient_table').append(addtable(list[i]))
+                }
+
+            })
+        }
+
+
+        $(function () {
+            var ctx = document.getElementById('patient_chart')
+
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                async: false,
+                data: {
+                    labels: patient_data.group,
+                    datasets: [{
+                        label: '# of Person',
+                        data: patient_data.data,
+                        backgroundColor: ['rgba(54, 162, 235, 0.2)'],
+                    }]
+                },
+                options: {scales: {yAxes: [{ticks: {beginAtZero: true}}]}}
+            });
+        })
+
+    </script>
 {% endblock %}

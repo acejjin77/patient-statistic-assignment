@@ -23,13 +23,24 @@ class PersonList(views.APIView):
         queryset = models.Person.objects.all()
         serializer = serializers.PersonSerializer(queryset, many=True)
         return Response(serializer.data)
-    #
-    # def get_gender(self, gender):
-    #     return models.Person.objects.filter(gender_source_value=gender)
-    #
-    # def get_race(self, race):
-    #     return models.Person.objects.filter(race_source_value=race)
-    #
-    # def get_ethnicity(self, ethnicity):
-    #     return models.Person.objects.filter(ethnicity_source_value=ethnicity)
 
+
+class PersonGenderList(views.APIView):
+    def get(self, request, gender):
+        queryset = models.Person.objects.filter(gender_source_value=gender)
+        serializer = serializers.PersonSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+
+class PersonRaceList(views.APIView):
+    def get(self, request, race):
+        queryset = models.Person.objects.filter(race_source_value=race)
+        serializer = serializers.PersonSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+
+class PersonEthnicityList(views.APIView):
+    def get(self, request, ethnicity):
+        queryset = models.Person.objects.filter(ethnicity_source_value=ethnicity)
+        serializer = serializers.PersonSerializer(queryset, many=True)
+        return Response(serializer.data)
