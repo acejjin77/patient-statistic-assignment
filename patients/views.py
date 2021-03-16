@@ -21,15 +21,15 @@ class VisitChartView(generic.TemplateView):
 class PersonList(views.APIView):
     def get(self, request):
         queryset = models.Person.objects.all()
-        serializer = serializers.PersonSerializer(queryset)
+        serializer = serializers.PersonSerializer(queryset, many=True)
         return Response(serializer.data)
-
-    def get_gender(self, gender):
-        return models.Person.objects.filter(gender_source_value=gender)
-
-    def get_race(self, race):
-        return models.Person.objects.filter(race_source_value=race)
-
-    def get_ethnicity(self, ethnicity):
-        return models.Person.objects.filter(ethnicity_source_value=ethnicity)
+    #
+    # def get_gender(self, gender):
+    #     return models.Person.objects.filter(gender_source_value=gender)
+    #
+    # def get_race(self, race):
+    #     return models.Person.objects.filter(race_source_value=race)
+    #
+    # def get_ethnicity(self, ethnicity):
+    #     return models.Person.objects.filter(ethnicity_source_value=ethnicity)
 

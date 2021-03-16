@@ -5,10 +5,10 @@ from rest_framework import serializers
 class PersonSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Person
-        fields = ('person_id', 'gender_source_value', 'person_source_value', 'ethnicity_source_value')
+        fields = ('person_id', 'gender_source_value', 'race_source_value', 'ethnicity_source_value')
 
 
-class DeathSerializer(serializers.ModelSerializer):
+class VisitSerializer(serializers.ModelSerializer):
     class Meta:
-        models = models.Death
-        fields = ('person_id',)
+        model = models.VisitOccurrence
+        fields = ('person_id', 'visit_occurrence_id', 'visit_type_concept_id')
