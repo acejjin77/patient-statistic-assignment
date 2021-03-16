@@ -5,6 +5,13 @@ from django.views import generic
 from . import models, serializers
 
 
+#########################
+#                       #
+# Template View         #
+#                       #
+#########################
+
+
 class PatientChartView(generic.TemplateView):
     template_name = 'patients/patients_all.html'
     models = models.Person
@@ -12,9 +19,10 @@ class PatientChartView(generic.TemplateView):
 
 #########################
 #                       #
-# Person Views          #
+# Data List View        #
 #                       #
 #########################
+
 
 class PersonList(views.APIView):
     def get(self, request):
@@ -40,5 +48,12 @@ class PersonRaceList(views.APIView):
 class PersonEthnicityList(views.APIView):
     def get(self, request, ethnicity):
         queryset = models.Person.objects.filter(ethnicity_source_value=ethnicity)
+        serializer = serializers.PersonSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+
+class PersonDeathList(views.APIView):
+    def get(self, request):
+        queryset = models.Death.objects.all()
         serializer = serializers.PersonSerializer(queryset, many=True)
         return Response(serializer.data)

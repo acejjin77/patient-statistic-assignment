@@ -8,4 +8,5 @@ urlpatterns = [
     path(r'gender/<str:gender>', views.PersonGenderList.as_view(), name='person-data-gender'),
     path(r'race/<str:race>', views.PersonRaceList.as_view(), name='person-data-race'),
     path(r'ethnicity/<str:ethnicity>', views.PersonEthnicityList.as_view(), name='person-data-ethnicity'),
+    path(r'death/', views.PersonDeathList.as_view(), name='person-data-death'),
 ]

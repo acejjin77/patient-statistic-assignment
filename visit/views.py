@@ -26,6 +26,11 @@ class VisitEthnicityView(generic.TemplateView):
     models = VisitOccurrence
 
 
+class VisitBirthView(generic.TemplateView):
+    template_name = 'visit/visit_birth.html'
+    models = VisitOccurrence
+
+
 #########################
 #                       #
 # Visit Occurence Views #
@@ -58,4 +63,11 @@ class VisitEthnicityList(views.APIView):
     def get(self, request, ethnicity):
         queryset = VisitOccurrence.objects.filter(person__ethnicity_source_value=ethnicity)
         serializer = VisitSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+
+class VisitBirthList(views.APIView):
+    def get(self, request):
+        queryset = VisitOccurrence.objects.all()
+        serializer = BirthSerializer(queryset, many=True)
         return Response(serializer.data)

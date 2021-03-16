@@ -39,9 +39,9 @@
         var patient_data = []
         var person_number= []
 
-        var groups = ['whole_patient', 'gender/M', 'gender/F', 'race/white', 'race/asian', 'race/black', 'ethnicity/hispanic', 'ethnicity/nonhispanic']
+        var groups = ['whole_patient', 'gender/M', 'gender/F', 'race/white', 'race/asian', 'race/black', 'ethnicity/hispanic', 'ethnicity/nonhispanic', 'death']
 
-        var labels = ['전체 환자 수', '남자', '여자', '백인', '동양인', '흑인', '라틴계', '비 라틴계']
+        var labels = ['전체 환자 수', '남자', '여자', '백인', '동양인', '흑인', '라틴계', '비 라틴계', '사망']
 
         var j = 0
 
@@ -92,13 +92,14 @@
                         label: '# of Person',
                         data: person_number,
                         backgroundColor: ['rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(200, 12, 92, 0.2)',
-                            'rgba(200, 12, 92, 0.2)'
+                            'rgba(255, 206, 86, 0.5)',
+                            'rgba(255, 206, 86, 0.5)',
+                            'rgba(75, 192, 192, 0.5)',
+                            'rgba(75, 192, 192, 0.5)',
+                            'rgba(75, 192, 192, 0.5)',
+                            'rgba(200, 12, 92, 0.5)',
+                            'rgba(200, 12, 92, 0.5)',
+                            'rgba(50, 50, 50, 0.5)'
                             ]
                     }]
                 },
