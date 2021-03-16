@@ -14,20 +14,12 @@
     <div class="main">
         <h3>전체 환자에 대한 비율그래프</h3>
         <br/>
-        <canvas id="patient_chart" data-url="{% url '' %}"></canvas>
+        <canvas id="patient_chart" data-url="{% url 'patients:person-data' %}"></canvas>
     </div>
 
 
 {% endblock %}
 
 {% block extra-script %}
-    <script>
-        var ctx = document.getElementById('patient_chart').getContext('2d');
 
-        $.ajax({
-            url:
-        })
-        }
-        ;
-    </script>
 {% endblock %}

@@ -19,13 +19,9 @@ from rest_framework import routers
 from patient_statistics.views import HomeView
 from patients import views
 
-router = routers.DefaultRouter()
-router.register(r'chart', views.ChartViewSet)
-
 urlpatterns = [
     path(r'admin/', admin.site.urls),
     path(r'', HomeView.as_view(), name='home'),
     path(r'api-auth/', include('rest_framework.urls')),
-    path(r'api/', include(router.urls)),
     path(r'patients/', include('patients.urls')),
 ]
