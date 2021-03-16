@@ -36,17 +36,17 @@
 
         var visit_data = []
 
-        var groups = ['visit_concept_id/9201', 'visit_concept_id/9202', 'visit_concept_id/9203']
+        var groups = ['visit_gender/8507', 'visit_gender/8532']
 
-        var labels = ['입원', '외래', '응급']
+        var labels = ['남자', '여자']
 
         var j = 0
 
         for (var i = 0; i < groups.length; i++) {
             $.ajax({
                 url: {% url 'visit:visit' %} +groups[i],
-                async: false,
                 dataType: 'json',
+                async: false,
                 success: function (data) {
                     var group_data = {}
                     group_data['group'] = labels[j++]

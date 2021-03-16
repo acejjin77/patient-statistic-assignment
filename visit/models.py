@@ -52,7 +52,7 @@ class Person(models.Model):
 
 class VisitOccurrence(models.Model):
     visit_occurrence_id = models.BigIntegerField(primary_key=True)
-    person = models.ForeignKey(Person, models.DO_NOTHING)
+    person = models.ForeignKey(Person, models.DO_NOTHING, related_name='personid')
     visit_concept = models.ForeignKey(Concept, models.DO_NOTHING, related_name='visit_concept')
     visit_start_date = models.DateField(blank=True, null=True)
     visit_start_datetime = models.DateTimeField()

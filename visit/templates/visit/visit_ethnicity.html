@@ -13,13 +13,14 @@
         <a href="{% url 'visit:ethnicity' %}">민족별 통계</a>
     </div>
 
+
     <div class="main">
         <h3>방문 유형에 대한 비율</h3>
 
         <br/>
 
         <div class="container">
-            <table id="concept_table" class="table table-bordered sm-2 text-center">
+            <table id="ethnicity_table" class="table table-bordered sm-2 text-center">
                 <tr>
                     <th>방문 유형</th>
                     <th>방문 횟수</th>
@@ -36,17 +37,17 @@
 
         var visit_data = []
 
-        var groups = ['visit_concept_id/9201', 'visit_concept_id/9202', 'visit_concept_id/9203']
+        var groups = ['visit_ethnicity/hispanic', 'visit_ethnicity/nonhispanic']
 
-        var labels = ['입원', '외래', '응급']
+        var labels = ['Hispanic', 'Non Hispanic']
 
         var j = 0
 
         for (var i = 0; i < groups.length; i++) {
             $.ajax({
                 url: {% url 'visit:visit' %} +groups[i],
-                async: false,
                 dataType: 'json',
+                async: false,
                 success: function (data) {
                     var group_data = {}
                     group_data['group'] = labels[j++]
@@ -71,7 +72,7 @@
 
         function show_table(data) {
             for (var i in data) {
-                $('#concept_table').append(addtable(data[i]))
+                $('#ethnicity_table').append(addtable(data[i]))
             }
         }
 
