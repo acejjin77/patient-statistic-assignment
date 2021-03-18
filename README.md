@@ -18,4 +18,4 @@ csv 데이터는 pgadmin 4 UI tool을 사용하여 Import 했습니다.
 
 사용 언어 : Python
 프레임워크: Django (restful framework), Bootstrap, ajax ..
-DB : PostgresQL
+DB : PostgreSQL
